@@ -51,7 +51,7 @@ void criaSphere(float radius, int stacks, int columns){
     gluDeleteQuadric(quadObj);
 }
 
-void renderizaAstroRei(){
+void renderizaSol(){
 	glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, sun.Texture);
     	glPushMatrix();
@@ -62,7 +62,7 @@ void renderizaAstroRei(){
 	glDisable(GL_TEXTURE_2D);
 }
 
-void queHajaLuz(){
+void Luz(){
 	if(podeBrilhar){
 		float luzAmbiente[] = {0.0, 0.0, 0.0, 1.0};
 	    float luzDifusa0[] = {difusa, difusa, difusa, 1.0};
@@ -86,7 +86,7 @@ void queHajaLuz(){
 	        glLightfv(GL_LIGHT0, GL_POSITION, luzPosicional0);
 	        glTranslatef(luzPosicional0[0], luzPosicional0[1], luzPosicional0[2]);
 	        glColor3f(difusa, difusa, difusa);
-	        renderizaAstroRei();
+	        renderizaSol();
 	    glPopMatrix();
 	}else{
 		glDisable(GL_LIGHT0);
@@ -113,7 +113,7 @@ void estadoExecucao(){
     exibeCamera();
    	glMaterialfv(GL_FRONT, GL_SHININESS, matrizBrilho);
     glColor3f(1, 1, 1);
-    queHajaLuz();
+    Luz();
     renderizaCorpos();
     //exibeOrbitas();
     glutSwapBuffers();
@@ -167,6 +167,98 @@ void defineBase(){
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
+void estadoTeclado(unsigned char key, int x, int y){
+	switch(key){
+		case '1':
+			modoCamera = 1;
+		break;
+		case '2':
+			modoCamera = 2;
+		break;
+		case 27:
+			exit(0);
+		break;
+		case 'w':
+			cursor.X--;
+		break;
+		case 'W':
+			cursor.X--;
+		break;
+		case 's':
+			cursor.X++;
+		break;
+		case 'S':
+			cursor.X++;
+		break;
+		case 'a':
+			cursor.Z--;
+		break;
+		case 'A':
+			cursor.Z--;
+		break;
+		case 'd':
+			cursor.Z++;
+		break;
+		case 'D':
+			cursor.Z++;
+		break;
+		case 'f':
+			podeBrilhar = !podeBrilhar;
+		break;
+		case 'F':
+			podeBrilhar 	= !podeBrilhar;
+		break;
+		case 'e':
+			if(horizonteEventos == 1){
+				horizonteEventos = 10;
+			} else{
+				horizonteEventos = 1;
+			}
+		break;
+		case 'E':
+			if(horizonteEventos == 1){
+				horizonteEventos = 10;
+			} else{
+				horizonteEventos = 1;
+			}
+		break;
+		case 'v':
+			podeOrbitar = !podeOrbitar;
+		break;
+		case 'V':
+			podeOrbitar = !podeOrbitar;
+		break;
+	}
+}
+
+/*Define as configurações da camera*/
+void confCamera(int x, int y){
+	float altX = x - mouse.X;
+	float altY = y - mouse.Y;
+
+	anguloCameraA = anguloCameraA + altX/150;
+	anguloCameraB = anguloCameraB + altY/150;
+
+	if(anguloCameraB > 180){
+		anguloCameraB = 180;
+	}
+
+	mouse.X = x;
+	mouse.Y = y;
+}
+
+void estadoRotacao(){
+	sun.Rotacao = sun.Rotacao + 0.1f;
+
+	glutPostRedisplay();
+}
+
+void estadoTranslacao(){
+
+	estadoRotacao();
+	glutPostRedisplay();
+}
+
 int main(int argc, char* args[]) {
     // Inicialização do SDL e outras bibliotecas
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -184,8 +276,10 @@ int main(int argc, char* args[]) {
     glutReshapeFunc(confJanela);
     glutDisplayFunc(estadoExecucao);
     glutTimerFunc(10, estadoAtualizacao, 10);
-
-    defineBase();
+	glutKeyboardFunc(estadoTeclado);
+    glutPassiveMotionFunc(confCamera);
+	glutIdleFunc(estadoTranslacao);
+	defineBase();
     
     // Início do loop do OpenGL
     glutMainLoop();
