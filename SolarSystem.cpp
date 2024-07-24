@@ -103,6 +103,15 @@ void renderizaCorpos(){
 	        glTranslatef(cursor.X, cursor.Y, cursor.Z); 
 	        criaSphere(7000, sun.Faces, sun.Faces);
 	    glPopMatrix();
+		//Mercurio
+		glBindTexture(GL_TEXTURE_2D, mercury.Texture);
+		glPushMatrix();
+	        glRotatef(mercury.Translacao, 0, 1, 0);
+	        glTranslatef(mercury.TamanhoTranslacao, 0.0, 0);
+	        glRotatef(mercury.Rotacao, 0, 1, 0);
+	        glRotatef(97, 1, 0, 0); 
+	        criaSphere(0.5 * horizonteEventos, mercury.Faces, mercury.Faces);
+	    glPopMatrix();
 
     glDisable(GL_TEXTURE_2D);
 }
@@ -158,6 +167,14 @@ void defineBase(){
 	sun.Faces = 200;
 	sun.Estado = true;
 	sun.Rotacao = 0;
+
+	//MERCURIO
+	mercury.Texture = carregaTextura("resources/textures/mercury.jpg");
+	mercury.Translacao = 90;
+	mercury.Rotacao = 10;
+	mercury.TamanhoTranslacao = 126;
+	mercury.Faces = 200;
+	mercury.Estado = true;
 
 	/*Configurações do Material*/
 	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, matrizAD);
@@ -249,12 +266,14 @@ void confCamera(int x, int y){
 
 void estadoRotacao(){
 	sun.Rotacao = sun.Rotacao + 0.1f;
+	mercury.Rotacao = mercury.Rotacao + 0.04f;
 
 	glutPostRedisplay();
 }
 
 void estadoTranslacao(){
-
+	mercury.Translacao = mercury.Translacao + 0.16f;
+	
 	estadoRotacao();
 	glutPostRedisplay();
 }
