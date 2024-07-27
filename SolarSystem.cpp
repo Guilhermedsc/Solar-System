@@ -112,6 +112,24 @@ void renderizaCorpos(){
 	        glRotatef(97, 1, 0, 0); 
 	        criaSphere(0.5 * horizonteEventos, mercury.Faces, mercury.Faces);
 	    glPopMatrix();
+		//Venus
+	    glBindTexture(GL_TEXTURE_2D, venus.Texture);   
+	    glPushMatrix();
+	        glRotatef(venus.Translacao, 0, 1, 0);
+	        glTranslatef(venus.TamanhoTranslacao, 0.0, 0);
+	        glRotatef(venus.Rotacao, 0, 1, 0);
+	        glRotatef(-267, 1, 0, 0);        
+	        criaSphere(0.95 * horizonteEventos, venus.Faces, venus.Faces);
+	    glPopMatrix();
+		//Terra
+	    glBindTexture(GL_TEXTURE_2D, earth.Texture);   
+	    glPushMatrix();
+	        glRotatef(earth.Translacao, 0, 1, 0);
+	        glTranslatef(earth.TamanhoTranslacao, 0.0, 0);
+	        glRotatef(earth.Rotacao, 0, 1, 0);
+	        glRotatef(-133.5, 1, 0, 0);        
+	        criaSphere(1 * horizonteEventos, earth.Faces, earth.Faces);
+	    glPopMatrix();
 
     glDisable(GL_TEXTURE_2D);
 }
@@ -169,12 +187,28 @@ void defineBase(){
 	sun.Rotacao = 0;
 
 	//MERCURIO
-	mercury.Texture = carregaTextura("resources/textures/mercury.jpg");
+	mercury.Texture = carregaTextura("textures/mercury.jpg");
 	mercury.Translacao = 90;
 	mercury.Rotacao = 10;
 	mercury.TamanhoTranslacao = 126;
 	mercury.Faces = 200;
 	mercury.Estado = true;
+
+	//VENUS
+	venus.Texture = carregaTextura("textures/venus.jpg");
+	venus.Translacao = 30;
+	venus.Rotacao = 10;
+	venus.TamanhoTranslacao = 166;
+	venus.Faces = 200;
+	venus.Estado = true;
+
+	//TERRA
+	earth.Texture = carregaTextura("textures/earth.jpg");
+	earth.Translacao = 90;
+	earth.Rotacao = 90;
+	earth.TamanhoTranslacao = 200;
+	earth.Faces = 200;
+	earth.Estado = true;
 
 	/*Configurações do Material*/
 	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, matrizAD);
@@ -267,12 +301,16 @@ void confCamera(int x, int y){
 void estadoRotacao(){
 	sun.Rotacao = sun.Rotacao + 0.1f;
 	mercury.Rotacao = mercury.Rotacao + 0.04f;
+	venus.Rotacao = venus.Rotacao + 0.01f;
+	earth.Rotacao = earth.Rotacao + 2.4f;
 
 	glutPostRedisplay();
 }
 
 void estadoTranslacao(){
 	mercury.Translacao = mercury.Translacao + 0.16f;
+	venus.Translacao = venus.Translacao + 0.12f;
+	earth.Translacao = earth.Translacao + 0.1f;
 	
 	estadoRotacao();
 	glutPostRedisplay();
