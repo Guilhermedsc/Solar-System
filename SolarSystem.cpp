@@ -22,8 +22,11 @@ void exibeCamera(){
     		 gluLookAt(cursor.X+camera.X, camera.Y, cursor.Z+camera.Z, cursor.X+0, 0, cursor.Z+0, 0, 1, 0);
     	break;
     	case 2:
-    		gluLookAt(0, 0, 1080, 0, 0, 0, 0, 1, 0);
+    		gluLookAt(0, 0, 800, 0, 0, 0, 0, 1, 0);
     	break;
+		case 3:
+            gluLookAt(0, 1500, 0, 0, 0, 0, 0, 0, -1);
+        break;
     }
 }
 
@@ -130,7 +133,51 @@ void renderizaCorpos(){
 	        glRotatef(-133.5, 1, 0, 0);        
 	        criaSphere(1 * horizonteEventos, earth.Faces, earth.Faces);
 	    glPopMatrix();
-
+		//Marte
+	    glBindTexture(GL_TEXTURE_2D, mars.Texture);   
+	    glPushMatrix();
+	        glRotatef(mars.Translacao, 0, 1, 0);
+	        glTranslatef(mars.TamanhoTranslacao, 0.0, 0);
+	        glRotatef(mars.Rotacao, 0, 1, 0);
+	        glRotatef(115, 1, 0, 0);        
+	        criaSphere(0.53 * horizonteEventos, mars.Faces, mars.Faces);
+	    glPopMatrix();
+	    //Jupiter
+	    glBindTexture(GL_TEXTURE_2D, jupiter.Texture);   
+	    glPushMatrix();
+	        glRotatef(jupiter.Translacao, 0, 1, 0);
+	        glTranslatef(jupiter.TamanhoTranslacao, 0.0, 0);
+	        glRotatef(jupiter.Rotacao, 0, 1, 0);
+	        glRotatef(93, 1, 0, 0);        
+	        criaSphere(9.2 * horizonteEventos, jupiter.Faces, jupiter.Faces);
+	    glPopMatrix();
+	    //Urano
+	    glBindTexture(GL_TEXTURE_2D, uranus.Texture);   
+	    glPushMatrix();
+	        glRotatef(uranus.Translacao, 0, 1, 0);
+	        glTranslatef(uranus.TamanhoTranslacao, 0.0, 0);
+	        glRotatef(uranus.Rotacao, 0, 1, 0);
+	        glRotatef(-188, 1, 0, 0);        
+	        criaSphere(4.1 * horizonteEventos, uranus.Faces, uranus.Faces);
+	    glPopMatrix();
+	    //Netuno
+	    glBindTexture(GL_TEXTURE_2D, neptune.Texture);   
+	    glPushMatrix();
+	        glRotatef(neptune.Translacao, 0, 1, 0);
+	        glTranslatef(neptune.TamanhoTranslacao, 0.0, 0);
+	        glRotatef(neptune.Rotacao, 0, 1, 0);
+	        glRotatef(120, 1, 0, 0);        
+	        criaSphere(3.88 * horizonteEventos, neptune.Faces, neptune.Faces);
+	    glPopMatrix();
+	    //Saturno
+	    glBindTexture(GL_TEXTURE_2D, saturn.Texture);   
+	    glPushMatrix();
+	        glRotatef(saturn.Translacao, 0, 1, 0);
+	        glTranslatef(saturn.TamanhoTranslacao, 0.0, 0);
+	        glRotatef(saturn.Rotacao, 0, 1, 0);
+	        glRotatef(117, 1, 0, 0);        
+	        criaSphere(7.45 * horizonteEventos, saturn.Faces, saturn.Faces);
+	    glPopMatrix();
     glDisable(GL_TEXTURE_2D);
 }
 
@@ -210,6 +257,46 @@ void defineBase(){
 	earth.Faces = 200;
 	earth.Estado = true;
 
+	//MARTE
+	mars.Texture = carregaTextura("textures/mars.jpg");
+	mars.Translacao = 10;
+	mars.Rotacao = 10;
+	mars.TamanhoTranslacao = 264;
+	mars.Faces = 200;
+	mars.Estado = true;
+
+	//JUPITER
+	jupiter.Texture = carregaTextura("textures/jupiter.jpg");
+	jupiter.Translacao = 78;
+	jupiter.Rotacao = 10;
+	jupiter.TamanhoTranslacao = 500;
+	jupiter.Faces = 200;
+	jupiter.Estado = true;
+
+	//URANO
+	uranus.Texture = carregaTextura("textures/uranus.jpg");
+	uranus.Translacao = 10;
+	uranus.Rotacao = 10;
+	uranus.TamanhoTranslacao = 900;
+	uranus.Faces = 200;
+	uranus.Estado = true;
+
+	//NETUNO
+	neptune.Texture = carregaTextura("textures/neptune.jpg");
+	neptune.Translacao = 10;
+	neptune.Rotacao = 90;
+	neptune.TamanhoTranslacao = 1000;
+	neptune.Faces = 200;
+	neptune.Estado = true;
+
+	//Saturno
+	saturn.Texture = carregaTextura("textures/saturn.jpg");
+	saturn.Translacao = 10;
+	saturn.Rotacao = 10;
+	saturn.TamanhoTranslacao = 670;
+	saturn.Faces = 200;
+	saturn.Estado = true;
+
 	/*Configurações do Material*/
 	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, matrizAD);
     glMaterialfv(GL_FRONT, GL_SPECULAR, matrizEspecular);
@@ -225,6 +312,9 @@ void estadoTeclado(unsigned char key, int x, int y){
 		break;
 		case '2':
 			modoCamera = 2;
+		break;
+		case '3':
+			modoCamera = 3;
 		break;
 		case 27:
 			exit(0);
@@ -303,6 +393,11 @@ void estadoRotacao(){
 	mercury.Rotacao = mercury.Rotacao + 0.04f;
 	venus.Rotacao = venus.Rotacao + 0.01f;
 	earth.Rotacao = earth.Rotacao + 2.4f;
+	mars.Rotacao = mars.Rotacao + 2.3f;
+	jupiter.Rotacao = jupiter.Rotacao + 5.7f;
+	uranus.Rotacao = uranus.Rotacao + 3.4f;
+	neptune.Rotacao = neptune.Rotacao + 3.6f;
+	saturn.Rotacao = saturn.Rotacao + 5.2f;
 
 	glutPostRedisplay();
 }
@@ -311,6 +406,11 @@ void estadoTranslacao(){
 	mercury.Translacao = mercury.Translacao + 0.16f;
 	venus.Translacao = venus.Translacao + 0.12f;
 	earth.Translacao = earth.Translacao + 0.1f;
+	mars.Translacao = mars.Translacao + 0.08f;
+	jupiter.Translacao = jupiter.Translacao + 0.043f;
+	uranus.Translacao = uranus.Translacao + 0.22f;
+	neptune.Translacao = neptune.Translacao + 0.18f;
+	saturn.Translacao = saturn.Translacao + 0.031f;
 	
 	estadoRotacao();
 	glutPostRedisplay();
