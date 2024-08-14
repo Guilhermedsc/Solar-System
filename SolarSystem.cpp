@@ -181,6 +181,42 @@ void renderizaCorpos(){
     glDisable(GL_TEXTURE_2D);
 }
 
+void desenhoOrbitas(GLdouble tamanho){
+	/*Orbita dos Planetas*/
+	GLUquadric *disk;
+    disk = gluNewQuadric(); 
+
+    glPushMatrix();
+    
+        glRotatef(0, 0, -1, 0);
+        glRotatef(90, 1, 0, 0);
+        glTranslatef(0, 0, 0);
+        gluDisk(disk, tamanho, tamanho+0.5, 600, 600);
+    glPopMatrix();
+    gluDeleteQuadric(disk);
+}
+
+void exibeOrbitas(){
+	if(podeOrbitar){
+	//Mercurio
+	desenhoOrbitas(mercury.TamanhoTranslacao);
+	//Venus
+	desenhoOrbitas(venus.TamanhoTranslacao);
+	//Terra
+	desenhoOrbitas(earth.TamanhoTranslacao);
+	//Marte
+	desenhoOrbitas(mars.TamanhoTranslacao);
+	//Jupiter
+	desenhoOrbitas(jupiter.TamanhoTranslacao);
+	//Urano
+	desenhoOrbitas(uranus.TamanhoTranslacao);
+	//Netuno
+	desenhoOrbitas(neptune.TamanhoTranslacao);
+	//Saturno
+	desenhoOrbitas(saturn.TamanhoTranslacao);
+	}
+}
+
 void estadoExecucao(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
@@ -189,7 +225,7 @@ void estadoExecucao(){
     glColor3f(1, 1, 1);
     Luz();
     renderizaCorpos();
-    //exibeOrbitas();
+    exibeOrbitas();
     glutSwapBuffers();
 }
 
@@ -316,7 +352,7 @@ void estadoTeclado(unsigned char key, int x, int y){
 		case '3':
 			modoCamera = 3;
 		break;
-		case 27:
+		case '0':
 			exit(0);
 		break;
 		case 'w':
