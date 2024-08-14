@@ -12,7 +12,6 @@
 #include <GL/freeglut.h>
 #include <math.h>
 
-//Estruturas
 typedef struct{
 	float Translacao;
 	float Rotacao;
@@ -39,7 +38,6 @@ typedef struct{
 	float Altura;
 }Janela;
 
-//Variaveis dos Corpos
 Corpo space;
 Corpo sun;
 Corpo mercury;
@@ -61,7 +59,6 @@ float matrizEspecular[] = {1.0, 1.0, 1,0, 1.0};
 float matrizBrilho[] = {50};
 EixoFLOAT luzBranca;
 
- 
 //Variaveis de Controle
 int horizonteEventos = 1;
 EixoINT cursor;

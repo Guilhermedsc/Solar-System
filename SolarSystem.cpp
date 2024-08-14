@@ -1,6 +1,5 @@
 #include "SolarSystem.h"
 
-// Função para configurar a janela
 void confJanela(int w, int h){
     janela.Largura = w;
     janela.Altura = h;
@@ -182,7 +181,6 @@ void renderizaCorpos(){
 }
 
 void desenhoOrbitas(GLdouble tamanho){
-	/*Orbita dos Planetas*/
 	GLUquadric *disk;
     disk = gluNewQuadric(); 
 
@@ -198,21 +196,13 @@ void desenhoOrbitas(GLdouble tamanho){
 
 void exibeOrbitas(){
 	if(podeOrbitar){
-	//Mercurio
 	desenhoOrbitas(mercury.TamanhoTranslacao);
-	//Venus
 	desenhoOrbitas(venus.TamanhoTranslacao);
-	//Terra
 	desenhoOrbitas(earth.TamanhoTranslacao);
-	//Marte
 	desenhoOrbitas(mars.TamanhoTranslacao);
-	//Jupiter
 	desenhoOrbitas(jupiter.TamanhoTranslacao);
-	//Urano
 	desenhoOrbitas(uranus.TamanhoTranslacao);
-	//Netuno
 	desenhoOrbitas(neptune.TamanhoTranslacao);
-	//Saturno
 	desenhoOrbitas(saturn.TamanhoTranslacao);
 	}
 }
@@ -234,13 +224,11 @@ void estadoAtualizacao(int time){
     glutTimerFunc(time, estadoAtualizacao, time);
 }
 
-/*Define estado inicial dos componentes*/
 void defineBase(){
 	glClearColor(0,0,0, 0.0);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    /*Configurações da Luz*/
     difusa = 1;
 	especular = 1;
 	posicional = 1;
@@ -248,28 +236,22 @@ void defineBase(){
 	luzBranca.X = 0;
 	luzBranca.Y = 0;
 
-	/*Configurações do Cursor*/
 	cursor.X = 0;
 	cursor.Y = 0;
 	cursor.Z = 0;
 
-	/*Configurações do Mouse*/
 	mouse.X = 0;
 	mouse.Y = 0;
 	mouse.Z = 0;
 
-    /*Configurações dos Corpos*/
-	//Espaço
 	space.Texture = carregaTextura("textures/space.jpg");
 
-    //SOL
 	sun.Texture = carregaTextura("textures/sun.jpg");
 	sun.Translacao = 0;
 	sun.Faces = 200;
 	sun.Estado = true;
 	sun.Rotacao = 0;
 
-	//MERCURIO
 	mercury.Texture = carregaTextura("textures/mercury.jpg");
 	mercury.Translacao = 90;
 	mercury.Rotacao = 10;
@@ -277,7 +259,6 @@ void defineBase(){
 	mercury.Faces = 200;
 	mercury.Estado = true;
 
-	//VENUS
 	venus.Texture = carregaTextura("textures/venus.jpg");
 	venus.Translacao = 30;
 	venus.Rotacao = 10;
@@ -285,7 +266,6 @@ void defineBase(){
 	venus.Faces = 200;
 	venus.Estado = true;
 
-	//TERRA
 	earth.Texture = carregaTextura("textures/earth.jpg");
 	earth.Translacao = 90;
 	earth.Rotacao = 90;
@@ -293,7 +273,6 @@ void defineBase(){
 	earth.Faces = 200;
 	earth.Estado = true;
 
-	//MARTE
 	mars.Texture = carregaTextura("textures/mars.jpg");
 	mars.Translacao = 10;
 	mars.Rotacao = 10;
@@ -301,7 +280,6 @@ void defineBase(){
 	mars.Faces = 200;
 	mars.Estado = true;
 
-	//JUPITER
 	jupiter.Texture = carregaTextura("textures/jupiter.jpg");
 	jupiter.Translacao = 78;
 	jupiter.Rotacao = 10;
@@ -309,7 +287,6 @@ void defineBase(){
 	jupiter.Faces = 200;
 	jupiter.Estado = true;
 
-	//URANO
 	uranus.Texture = carregaTextura("textures/uranus.jpg");
 	uranus.Translacao = 10;
 	uranus.Rotacao = 10;
@@ -317,7 +294,6 @@ void defineBase(){
 	uranus.Faces = 200;
 	uranus.Estado = true;
 
-	//NETUNO
 	neptune.Texture = carregaTextura("textures/neptune.jpg");
 	neptune.Translacao = 10;
 	neptune.Rotacao = 90;
@@ -325,7 +301,6 @@ void defineBase(){
 	neptune.Faces = 200;
 	neptune.Estado = true;
 
-	//Saturno
 	saturn.Texture = carregaTextura("textures/saturn.jpg");
 	saturn.Translacao = 10;
 	saturn.Rotacao = 10;
@@ -333,7 +308,6 @@ void defineBase(){
 	saturn.Faces = 200;
 	saturn.Estado = true;
 
-	/*Configurações do Material*/
 	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, matrizAD);
     glMaterialfv(GL_FRONT, GL_SPECULAR, matrizEspecular);
     glMaterialfv(GL_FRONT, GL_SHININESS, matrizBrilho);
@@ -408,7 +382,6 @@ void estadoTeclado(unsigned char key, int x, int y){
 	}
 }
 
-/*Define as configurações da camera*/
 void confCamera(int x, int y){
 	float altX = x - mouse.X;
 	float altY = y - mouse.Y;
@@ -461,8 +434,8 @@ int main(int argc, char* args[]) {
 
     // Criação da janela
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH); //Modo
-    glutInitWindowSize(1350, 720);//Dimensão
-    glutInitWindowPosition (0, 0);//Posição
+    glutInitWindowSize(1350, 720);
+    glutInitWindowPosition (0, 0);
     glutCreateWindow("Solar System");
 
     //Chamada de funções
