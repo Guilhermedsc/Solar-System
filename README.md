@@ -10,7 +10,7 @@ Esse projeto foi desenvolvido como forma de avaliação para a cadeira de Comput
 ## Makefile
 
 ```
-make install			- Instalar as bibliotecas utilizadas
+make install			    - Instalar as bibliotecas utilizadas
 make comp				- Compilar o projeto
 make run				- Executar o projeto já compilado
 ```
