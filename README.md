@@ -32,11 +32,3 @@ Vale lembrar que para executar esse programa/código você precisa estar em um a
 ![](/imgs/3.png)
 ![](/imgs/4.png)
 ![](/imgs/5.png)
-
-## Vídeo 
-
-Vídeo executando o projeto e mostrando as funcionalidades.
-
-```
-https://drive.google.com/file/d/1-fIChJEokg2e0zb7JimJHDEFVCXVBdhl/view?usp=sharing
-```
